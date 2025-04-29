@@ -1,9 +1,12 @@
-function PostEdit() {
+import EditPostForm from '../features/EditPostForm';
+
+const PostEdit = () => {
   return (
-    <div>
-      <h1>Edit post</h1>
-    </div>
-  )
-}
+    <>
+      <h1 className="mb-4">Edit post</h1>
+      <EditPostForm />
+    </>
+  );
+};
 
 export default PostEdit;

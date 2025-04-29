@@ -9,6 +9,11 @@ function Home() {
 
   return (
     <>
+    <div className="d-flex justify-content-end mb-4">
+      <Link to="/post/add">
+        <Button variant="outline-primary">Add post</Button>
+      </Link>
+    </div>
       <h1>All posts</h1>
       <Row>
         {posts.map(post => (

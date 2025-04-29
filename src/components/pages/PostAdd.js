@@ -1,8 +1,11 @@
+import AddPostForm from '../features/AddPostForm';
+
 function PostAdd() {
   return (
-    <div>
-      <h1>Add new post</h1>
-    </div>
+    <>
+      <h1 classname="mb-4">Add post</h1>
+      <AddPostForm />
+    </>
   )
 }
 

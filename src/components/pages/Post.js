@@ -7,6 +7,7 @@ import { Modal } from 'react-bootstrap';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { removePost } from '../../redux/postsRedux';
+import { dateToStr } from '../../utils/dateToStr';
 
 
 function Post() {
@@ -29,8 +30,8 @@ function Post() {
         </div>
       </h1>
       <p><strong>Author:</strong> {post.author}</p>
-      <p><strong>Published:</strong> {post.publishedDate}</p>
-      <p>{post.content}</p>
+      <p><strong>Published:</strong> {dateToStr(post.publishedDate)}</p>
+      <div dangerouslySetInnerHTML={{ __html: post.content }} />
       <Modal show={showModal} onHide={() => setShowModal(false)}>
         <Modal.Header closeButton>
           <Modal.Title>Are you sure?</Modal.Title>

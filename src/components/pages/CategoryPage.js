@@ -1,24 +1,21 @@
+import { useParams, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { getAllPosts } from '../../redux/postsRedux';
-import { Link } from 'react-router-dom';
 import { Card, Button, Row, Col } from 'react-bootstrap';
 import { dateToStr } from '../../utils/dateToStr';
 
-
-function Home() {
-
+const CategoryPage = () => {
+  const { categoryName } = useParams();
   const posts = useSelector(getAllPosts);
+  const filteredPosts = posts.filter(post =>
+    post.category.toLowerCase() === categoryName.toLowerCase()
+  );
 
   return (
     <>
-    <div className="d-flex justify-content-end mb-4">
-      <Link to="/post/add">
-        <Button variant="outline-primary">Add post</Button>
-      </Link>
-    </div>
-      <h1>All posts</h1>
+      <h1>Posts in category: {categoryName}</h1>
       <Row>
-        {posts.map(post => (
+        {filteredPosts.map(post => (
           <Col key={post.id} md={4} className="mb-4">
             <Card>
               <Card.Body>
@@ -36,7 +33,7 @@ function Home() {
         ))}
       </Row>
     </>
-  )
-}
+  );
+};
 
-export default Home;
+export default CategoryPage;

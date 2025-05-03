@@ -7,6 +7,8 @@ import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
 import { format } from 'date-fns';
 import { useForm } from 'react-hook-form';
+import { useSelector } from 'react-redux';
+import { getAllCategories } from '../../redux/categoriesRedux';
 
 const PostForm = ({ action, actionText, ...props }) => {
   const [title, setTitle] = useState(props.title || '');
@@ -18,13 +20,17 @@ const PostForm = ({ action, actionText, ...props }) => {
   const { register, handleSubmit: validate, formState: { errors } } = useForm();
   const [contentError, setContentError] = useState(false);
   const [dateError, setDateError] = useState(false);
+  const [category, setCategory] = useState(props.category || '');
+
+  const categories = useSelector(getAllCategories);
+
 
   const handleSubmit = () => {
     setContentError(!content);
     setDateError(!publishedDate);
 
-    if(content && publishedDate) {
-      action({ title, author, publishedDate, shortDescription, content });
+    if(content && publishedDate && category) {
+      action({ title, author, publishedDate, shortDescription, content, category });
     }
   };  
 
@@ -102,6 +108,29 @@ const PostForm = ({ action, actionText, ...props }) => {
   )}
 </Form.Group>
   </Col>
+</Row>
+
+<Row className='mb-3'>
+<Col md={6}>
+<Form.Group className="mb-3">
+  <Form.Label>Category</Form.Label>
+  <Form.Select
+    {...register('category', { required: true })}
+    value={category}
+    onChange={(e) => setCategory(e.target.value)}
+  >
+    <option value="">Select category...</option>
+    {categories.map(cat => (
+      <option key={cat} value={cat}>{cat}</option>
+    ))}
+  </Form.Select>
+  {errors.category && (
+    <small className="d-block form-text text-danger mt-2">
+      You must choose a category
+    </small>
+  )}
+</Form.Group>
+</Col>
 </Row>
 
 <Row className="mb-3">

@@ -31,6 +31,7 @@ function Post() {
       </h1>
       <p><strong>Author:</strong> {post.author}</p>
       <p><strong>Published:</strong> {dateToStr(post.publishedDate)}</p>
+      <p><strong>Category:</strong> {post.category}</p>
       <div dangerouslySetInnerHTML={{ __html: post.content }} />
       <Modal show={showModal} onHide={() => setShowModal(false)}>
         <Modal.Header closeButton>
